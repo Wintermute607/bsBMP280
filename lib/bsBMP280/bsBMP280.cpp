@@ -1,15 +1,14 @@
 #include "bsBMP280.h"
 #include "bsBMP280Settings.h"
-#include <cstdint>
 
 
 namespace BMP280
 {
     /************** CONSTRUCTOR ***************/
 
-    bsBMP280::bsBMP280(I2C& i2cInterface, i2cAddresses address) : i2cInterface(i2cInterface), I2C_ADDRESS(static_cast<int>(address) << 1, INITIALIZED(initialize()))
+    bsBMP280::bsBMP280(I2C& i2cInterface, i2cAddresses address) : i2cInterface(i2cInterface), I2C_ADDRESS(static_cast<int>(address) << 1), INITIALIZED(initialize())
     {
-        // ...
+        foo();
     }
 
 

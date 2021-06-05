@@ -30,10 +30,6 @@ namespace BMP280
 
             inline bool initialize() const;
             uint8_t getChipID() const;
-
-            
-
-  
     };
 }
 

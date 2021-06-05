@@ -30,7 +30,7 @@ namespace BMP280
         static constexpr auto SLEEP_MODE  = uint8_t {0x00}; // in sleep mode no measurements are performed (set by default after power on reset)
         static constexpr auto FORCED_MODE = uint8_t {0x01}; // in forced mode a single measurement is performed according to selected measurement and filter options
         static constexpr auto NORMAL_MODE = uint8_t {0x03}; // normal mode continuosly cycles between an active measurement period and an inactive standby period
-    };
+    }
 
     namespace Oversampling  /* BMP280 - OVERSAMPLING - BITVECTOR IN THE MEASUREMENT CONTROL REGISTER */
     {
@@ -40,7 +40,7 @@ namespace BMP280
         static constexpr auto OVERSAMPLING_X4  = uint8_t {0x03}; // oversampling ×4 (standard resolution, 18 bit, 0.66Pa / 0.0012°C)
         static constexpr auto OVERSAMPLING_X8  = uint8_t {0x04}; // oversampling ×8 (high resolution, 19 bit, 0.33Pa / 0.0006°C)
         static constexpr auto OVERSAMPLING_X16 = uint8_t {0x05}; // oversampling ×16 (ultra high resolution, 20 bit, 0.16Pa / 0.0003°C)
-    };
+    }
     
     namespace IIRFilter  /* BMP280 - INFINITE IMPULSE RESPONSE FILTER - BITVECTOR IN THE CONFIGURATION REGISTER */ 
     {
@@ -49,7 +49,7 @@ namespace BMP280
         static constexpr auto IIR_FILTER_4   = uint8_t {0x02}; // Filter coefficient 4 (5 Samples to reach ≥75 % of step response)
         static constexpr auto IIR_FILTER_8   = uint8_t {0x03}; // Filter coefficient 8 (11 Samples to reach ≥75 % of step response)
         static constexpr auto IIR_FILTER_16  = uint8_t {0x04}; // Filter coefficient 16 (22 Samples to reach ≥75 % of step response)
-    };
+    }
 
     namespace StandbyTime  /* BMP280 - STANDBY TIME - BITVECTOR IN THE CONFIGURATION REGISTER */ 
     {
@@ -61,7 +61,7 @@ namespace BMP280
         static constexpr auto STANDBY_TIME_1000MS = uint8_t {0x05}; // 1000ms standby time between active measurement period and an inactive standby period
         static constexpr auto STANDBY_TIME_2000MS = uint8_t {0x06}; // 2000ms standby time between active measurement period and an inactive standby period
         static constexpr auto STANDBY_TIME_4000MS = uint8_t {0x07}; // 4000ms standby time between active measurement period and an inactive standby period
-    };
+    }
 
 }
 
