@@ -31,6 +31,9 @@ namespace BMP280
             void setFilter(const uint8_t filter);
             void setStandbyTime(const uint8_t time);
 
+            // set recommended setting
+            void setRecommendedSetting(const uint8_t crtl_meas = 0b00000000, const uint8_t config = 0b00000000);
+
         private:
 
             I2C& i2cInterface;
@@ -38,13 +41,13 @@ namespace BMP280
             const int I2C_ADDRESS;
             const bool INITIALIZED; 
 
-            uint8_t measurementControlRegister = 0b00000000; // copy of measurement control register
-            uint8_t configurationRegister = 0b00000000; // copy of config register
+            uint8_t measurementControlRegister; // copy of measurement control register
+            uint8_t configurationRegister; // copy of config register
 
             bool initialize() const;
             uint8_t getChipID() const;
-
             void setRegisterBits(uint8_t &reg, const uint8_t bitmask, const uint8_t offset, const uint8_t value); // set given register
+            int writeByte(const int address, const uint8_t payload);
     };
 }
 

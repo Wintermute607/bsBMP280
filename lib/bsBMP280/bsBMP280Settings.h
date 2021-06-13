@@ -88,8 +88,24 @@ namespace BMP280
         static constexpr auto STANDBY_TIME_4000MS = uint8_t {0x07}; // 4000ms standby time between active measurement period and an inactive standby period
     }
 
+    namespace RecommendedSettings  /* BMP280 - PREDEFINED RECOMMENDED SETTINGS FOR MEASUREMENT CONTROL AND CONFIGURATION REGISTER AS GIVEN IN THE DATASHEET */ 
+    {
+        static constexpr uint8_t HANDHELD_LOW_POWER[2]     = {0b01010111, 0b00101000}; // Handheld device low-power (e.g. smart phones running Android)
+        static constexpr uint8_t HANDHELD_DYNAMIC[2]       = {0b00101111, 0b00010000}; // Handheld device dynamic (e.g. smart phones running Android)
+        static constexpr uint8_t WEATHER_MONITORING[2]     = {0b00100101, 0b10100000}; // Weather monitoring (setting with lowest power consumption)
+        static constexpr uint8_t FLOOR_CHANGE_DETECTION[2] = {0b00101111, 0b01001000}; // Elevator / floor change detection
+        static constexpr uint8_t DROP_DETECTION[2]         = {0b00101011, 0b00000000}; // Drop detection
+        static constexpr uint8_t INDOOR_NAVIGATION[2]      = {0b01010111, 0b00010000}; // Indoor navigation
+    }
 }
 
 
 
 #endif // BS_BMP280_SETTINGS_H
+
+
+/*
+
+
+
+*/
