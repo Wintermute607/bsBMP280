@@ -4,6 +4,7 @@
 
 
 #include "mbed.h"
+#include <cstdint>
 
 
 
@@ -27,13 +28,22 @@ namespace BMP280
     
     namespace Modes  /* BMP280 - MODE - BITVECTOR IN THE MEASUREMENT CONTROL REGISTER */
     {
-        static constexpr auto SLEEP_MODE  = uint8_t {0x00}; // in sleep mode no measurements are performed (set by default after power on reset)
-        static constexpr auto FORCED_MODE = uint8_t {0x01}; // in forced mode a single measurement is performed according to selected measurement and filter options
-        static constexpr auto NORMAL_MODE = uint8_t {0x03}; // normal mode continuosly cycles between an active measurement period and an inactive standby period
+        static constexpr auto MODE_BITMASK = uint8_t {0b00000011}; // bitvektor bitmask 
+        static constexpr auto MODE_OFFSET  = uint8_t {0};          // offset of the the mode bitvector in the measurement control register
+
+        static constexpr auto SLEEP_MODE   = uint8_t {0x00}; // in sleep mode no measurements are performed (set by default after power on reset)
+        static constexpr auto FORCED_MODE  = uint8_t {0x01}; // in forced mode a single measurement is performed according to selected measurement and filter options
+        static constexpr auto NORMAL_MODE  = uint8_t {0x03}; // normal mode continuosly cycles between an active measurement period and an inactive standby period
     }
 
     namespace Oversampling  /* BMP280 - OVERSAMPLING - BITVECTOR IN THE MEASUREMENT CONTROL REGISTER */
     {
+        static constexpr auto PRESSURE_OVERSAMPLING_BITMASK    = uint8_t {0b00011100}; // bitvektor bitmask 
+        static constexpr auto PRESSURE_OVERSAMPLING_OFFSET     = uint8_t {2};          // offset of the the pressure oversampling bitvector in the measurement control register
+
+        static constexpr auto TEMPERATURE_OVERSAMPLING_BITMASK = uint8_t {0b11100000}; // bitvektor bitmask 
+        static constexpr auto TEMPERATURE_OVERSAMPLING_OFFSET  = uint8_t {5};          // offset of the the temperature oversampling bitvector in the measurement control register
+
         static constexpr auto OVERSAMPLING_OFF = uint8_t {0x00}; // pressure measurement skipped (output set to 0x80000)
         static constexpr auto OVERSAMPLING_X1  = uint8_t {0x01}; // oversampling ×1 (ultra low power, 16 bit, 2.62Pa / 0.0050°C)
         static constexpr auto OVERSAMPLING_X2  = uint8_t {0x02}; // oversampling ×2 (low power, 17 bit, 1.31Pa / 0.0025°C)
@@ -42,17 +52,32 @@ namespace BMP280
         static constexpr auto OVERSAMPLING_X16 = uint8_t {0x05}; // oversampling ×16 (ultra high resolution, 20 bit, 0.16Pa / 0.0003°C)
     }
     
+    namespace SPIInterface
+    {
+        static constexpr auto SPI_INTERFACE_BITMASK = uint8_t {0b00000001}; // bitvektor bitmask  
+        static constexpr auto SPI_INTERFACE_OFFSET  = uint8_t {0};          // offset of the the 3 wire spi interface bitvector in the configuration register
+
+        static constexpr auto SPI_INTERFACE_OFF = uint8_t {0x00}; // 3 wire spi interface off
+        static constexpr auto SPI_INTERFACE_ON  = uint8_t {0x01}; // 3 wire spi interface on
+    }
+
     namespace IIRFilter  /* BMP280 - INFINITE IMPULSE RESPONSE FILTER - BITVECTOR IN THE CONFIGURATION REGISTER */ 
     {
-        static constexpr auto IIR_FILTER_OFF = uint8_t {0x00}; // Filter off (1 Sample to reach ≥75 % of step response)
-        static constexpr auto IIR_FILTER_2   = uint8_t {0x01}; // Filter coefficient 2 (2 Samples to reach ≥75 % of step response)
-        static constexpr auto IIR_FILTER_4   = uint8_t {0x02}; // Filter coefficient 4 (5 Samples to reach ≥75 % of step response)
-        static constexpr auto IIR_FILTER_8   = uint8_t {0x03}; // Filter coefficient 8 (11 Samples to reach ≥75 % of step response)
-        static constexpr auto IIR_FILTER_16  = uint8_t {0x04}; // Filter coefficient 16 (22 Samples to reach ≥75 % of step response)
+        static constexpr auto IIR_FILTER_BITMASK = uint8_t {0b000111000}; // bitvektor bitmask  
+        static constexpr auto IIR_FILTER_OFFSET  = uint8_t {2}; // offset of the the iir filter bitvector in the configuration register
+
+        static constexpr auto IIR_FILTER_OFF = uint8_t {0x00}; // filter off (1 Sample to reach ≥75 % of step response)
+        static constexpr auto IIR_FILTER_X2  = uint8_t {0x01}; // filter coefficient x2 (2 Samples to reach ≥75 % of step response)
+        static constexpr auto IIR_FILTER_X4  = uint8_t {0x02}; // filter coefficient x4 (5 Samples to reach ≥75 % of step response)
+        static constexpr auto IIR_FILTER_X8  = uint8_t {0x03}; // filter coefficient x8 (11 Samples to reach ≥75 % of step response)
+        static constexpr auto IIR_FILTER_X16 = uint8_t {0x04}; // filter coefficient x16 (22 Samples to reach ≥75 % of step response)
     }
 
     namespace StandbyTime  /* BMP280 - STANDBY TIME - BITVECTOR IN THE CONFIGURATION REGISTER */ 
     {
+        static constexpr auto STANDBY_TIME_BITMASK = uint8_t {0b11100000}; // bitvektor bitmask  
+        static constexpr auto STANDBY_TIME_OFFSET  = uint8_t {5};          // offset of the the standby time bitvector in the configuration register
+
         static constexpr auto STANDBY_TIME_05MS   = uint8_t {0x00}; // 0.5ms standby time between active measurement period and an inactive standby period
         static constexpr auto STANDBY_TIME_62MS   = uint8_t {0x01}; // 62.5ms standby time between active measurement period and an inactive standby period
         static constexpr auto STANDBY_TIME_125MS  = uint8_t {0x02}; // 125ms standby time between active measurement period and an inactive standby period

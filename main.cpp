@@ -15,8 +15,9 @@ int main()
 
     while (true)
     {
-        bmp280 ? debug("BMP280 Sensor found.\n") : debug("BMP280 Sensor not found.\n");
+        // bmp280 ? debug("BMP280 Sensor found.\n") : debug("BMP280 Sensor not found.\n");
         led = !led;  // reverse the state of the led
+        bmp280.setFilter(IIRFilter::IIR_FILTER_X16);
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
     }
 }

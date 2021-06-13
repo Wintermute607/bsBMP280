@@ -17,9 +17,19 @@ namespace BMP280
       
             bsBMP280(I2C& i2c, i2cAddresses address = i2cAddresses::PRIMARY_ADDRESS);
 
-            explicit inline operator bool() const;
+            explicit operator bool() const;
 
             void foo();
+
+            // set measurement control register members 
+            void setMode(const uint8_t mode);
+            void setPressureOversampling(const uint8_t oversampling);
+            void setTemperatureOversampling(const uint8_t oversampling);
+
+            // set config register members 
+            void enable3WireSPI(const uint8_t enable); 
+            void setFilter(const uint8_t filter);
+            void setStandbyTime(const uint8_t time);
 
         private:
 
@@ -28,8 +38,13 @@ namespace BMP280
             const int I2C_ADDRESS;
             const bool INITIALIZED; 
 
-            inline bool initialize() const;
+            uint8_t measurementControlRegister = 0b00000000; // copy of measurement control register
+            uint8_t configurationRegister = 0b00000000; // copy of config register
+
+            bool initialize() const;
             uint8_t getChipID() const;
+
+            void setRegisterBits(uint8_t &reg, const uint8_t bitmask, const uint8_t offset, const uint8_t value); // set given register
     };
 }
 
