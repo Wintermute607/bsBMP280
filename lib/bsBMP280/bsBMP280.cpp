@@ -83,6 +83,12 @@ namespace BMP280
         writeByte(Registers::CONFIGURATION_REGISTER_ADDRESS, config);
     }
 
+    void bsBMP280::setRecommendedConfig(const uint8_t *config)
+    {
+        writeByte(Registers::MEASUREMENT_CONTROL_REGISTER_ADDRESS, config[0]);
+        writeByte(Registers::CONFIGURATION_REGISTER_ADDRESS, config[1]);
+    }
+
 
 
     /* PRIVATE METHODS */

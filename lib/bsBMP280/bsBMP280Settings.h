@@ -90,12 +90,18 @@ namespace BMP280
 
     namespace RecommendedSettings  /* BMP280 - PREDEFINED RECOMMENDED SETTINGS FOR MEASUREMENT CONTROL AND CONFIGURATION REGISTER AS GIVEN IN THE DATASHEET */ 
     {
-        static constexpr uint8_t HANDHELD_LOW_POWER[2]     = {0b01010111, 0b00101000}; // Handheld device low-power (e.g. smart phones running Android)
-        static constexpr uint8_t HANDHELD_DYNAMIC[2]       = {0b00101111, 0b00010000}; // Handheld device dynamic (e.g. smart phones running Android)
-        static constexpr uint8_t WEATHER_MONITORING[2]     = {0b00100101, 0b10100000}; // Weather monitoring (setting with lowest power consumption)
-        static constexpr uint8_t FLOOR_CHANGE_DETECTION[2] = {0b00101111, 0b01001000}; // Elevator / floor change detection
-        static constexpr uint8_t DROP_DETECTION[2]         = {0b00101011, 0b00000000}; // Drop detection
-        static constexpr uint8_t INDOOR_NAVIGATION[2]      = {0b01010111, 0b00010000}; // Indoor navigation
+        using namespace Modes;
+        using namespace Oversampling;
+        using namespace SPIInterface;
+        using namespace IIRFilter;
+        using namespace StandbyTime;
+        
+        static constexpr uint8_t HANDHELD_LOW_POWER[2]     = { ((OVERSAMPLING_X2 << TEMPERATURE_OVERSAMPLING_OFFSET) | (OVERSAMPLING_X16 << PRESSURE_OVERSAMPLING_OFFSET) | (NORMAL_MODE << MODE_OFFSET )), ((STANDBY_TIME_62MS << STANDBY_TIME_OFFSET) | (IIR_FILTER_X4 << IIR_FILTER_OFFSET) | (SPI_INTERFACE_OFF << SPI_INTERFACE_OFFSET)) }; // Handheld device low-power (e.g. smart phones running Android)
+        static constexpr uint8_t HANDHELD_DYNAMIC[2]       = { ((OVERSAMPLING_X1 << TEMPERATURE_OVERSAMPLING_OFFSET) | (OVERSAMPLING_X4 << PRESSURE_OVERSAMPLING_OFFSET) | (NORMAL_MODE << MODE_OFFSET )), ((STANDBY_TIME_05MS << STANDBY_TIME_OFFSET) | (IIR_FILTER_X16 << IIR_FILTER_OFFSET) | (SPI_INTERFACE_OFF << SPI_INTERFACE_OFFSET)) }; // Handheld device dynamic (e.g. smart phones running Android)
+        static constexpr uint8_t WEATHER_MONITORING[2]     = { ((OVERSAMPLING_X1 << TEMPERATURE_OVERSAMPLING_OFFSET) | (OVERSAMPLING_X1 << PRESSURE_OVERSAMPLING_OFFSET) | (FORCED_MODE << MODE_OFFSET )), ((STANDBY_TIME_1000MS << STANDBY_TIME_OFFSET) | (IIR_FILTER_OFF << IIR_FILTER_OFFSET) | (SPI_INTERFACE_OFF << SPI_INTERFACE_OFFSET)) }; // Weather monitoring (setting with lowest power consumption)
+        static constexpr uint8_t FLOOR_CHANGE_DETECTION[2] = { ((OVERSAMPLING_X1 << TEMPERATURE_OVERSAMPLING_OFFSET) | (OVERSAMPLING_X4 << PRESSURE_OVERSAMPLING_OFFSET) | (NORMAL_MODE << MODE_OFFSET )), ((STANDBY_TIME_125MS << STANDBY_TIME_OFFSET) | (IIR_FILTER_X4 << IIR_FILTER_OFFSET) | (SPI_INTERFACE_OFF << SPI_INTERFACE_OFFSET)) }; // Elevator / floor change detection
+        static constexpr uint8_t DROP_DETECTION[2]         = { ((OVERSAMPLING_X1 << TEMPERATURE_OVERSAMPLING_OFFSET) | (OVERSAMPLING_X2 << PRESSURE_OVERSAMPLING_OFFSET) | (NORMAL_MODE << MODE_OFFSET )), ((STANDBY_TIME_05MS << STANDBY_TIME_OFFSET) | (IIR_FILTER_OFF << IIR_FILTER_OFFSET) | (SPI_INTERFACE_OFF << SPI_INTERFACE_OFFSET)) }; // Drop detection
+        static constexpr uint8_t INDOOR_NAVIGATION[2]      = { ((OVERSAMPLING_X2 << TEMPERATURE_OVERSAMPLING_OFFSET) | (OVERSAMPLING_X16 << PRESSURE_OVERSAMPLING_OFFSET) | (NORMAL_MODE << MODE_OFFSET )), ((STANDBY_TIME_05MS << STANDBY_TIME_OFFSET) | (IIR_FILTER_X16 << IIR_FILTER_OFFSET) | (SPI_INTERFACE_OFF << SPI_INTERFACE_OFFSET)) }; // Indoor navigation
     }
 }
 
@@ -105,6 +111,10 @@ namespace BMP280
 
 
 /*
+StandbyTime::
+config    - ()t_sb | ()filter | ()spi3w |
+
+ctrl_meas - ()osrs_t | ()osrs_p | ()mode
 
 
 

@@ -33,6 +33,7 @@ namespace BMP280
 
             // set recommended setting
             void setRecommendedSetting(const uint8_t crtl_meas = 0b00000000, const uint8_t config = 0b00000000);
+            void setRecommendedConfig(const uint8_t config[2]);
 
         private:
 

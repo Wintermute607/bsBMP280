@@ -19,31 +19,43 @@ int main()
     while (true)
     {
         debug("Setting HANDHELD_LOW_POWER mode...\n");
+        debug("ctrl_meas: 0x%#X\r\n", RecommendedSettings::HANDHELD_LOW_POWER[0]);
+        debug("config: 0x%#X\r\n", RecommendedSettings::HANDHELD_LOW_POWER[1]);
         bmp280.setRecommendedSetting(RecommendedSettings::HANDHELD_LOW_POWER[0], RecommendedSettings::HANDHELD_LOW_POWER[1]);
         led = !led;  // reverse the state of the led
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
 
         debug("Setting HANDHELD_DYNAMIC mode...\n");
+        debug("ctrl_meas: 0x%#X\r\n", RecommendedSettings::HANDHELD_DYNAMIC[0]);
+        debug("config: 0x%#X\r\n", RecommendedSettings::HANDHELD_DYNAMIC[1]);
         bmp280.setRecommendedSetting(RecommendedSettings::HANDHELD_DYNAMIC[0], RecommendedSettings::HANDHELD_DYNAMIC[1]);
         led = !led;  // reverse the state of the led
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
 
         debug("Setting WEATHER_MONITORING mode...\n");
+        debug("ctrl_meas: 0x%#X\r\n", RecommendedSettings::WEATHER_MONITORING[0]);
+        debug("config: 0x%#X\r\n", RecommendedSettings::WEATHER_MONITORING[1]);
         bmp280.setRecommendedSetting(RecommendedSettings::WEATHER_MONITORING[0], RecommendedSettings::WEATHER_MONITORING[1]);
         led = !led;  // reverse the state of the led
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
 
         debug("Setting FLOOR_CHANGE_DETECTION mode...\n");
+        debug("ctrl_meas: 0x%#X\r\n", RecommendedSettings::FLOOR_CHANGE_DETECTION[0]);
+        debug("config: 0x%#X\r\n", RecommendedSettings::FLOOR_CHANGE_DETECTION[1]);
         bmp280.setRecommendedSetting(RecommendedSettings::FLOOR_CHANGE_DETECTION[0], RecommendedSettings::FLOOR_CHANGE_DETECTION[1]);
         led = !led;  // reverse the state of the led
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
 
         debug("Setting DROP_DETECTION mode...\n");
+        debug("ctrl_meas: 0x%#X\r\n", RecommendedSettings::DROP_DETECTION[0]);
+        debug("config: 0x%#X\r\n", RecommendedSettings::DROP_DETECTION[1]);
         bmp280.setRecommendedSetting(RecommendedSettings::DROP_DETECTION[0], RecommendedSettings::DROP_DETECTION[1]);
         led = !led;  // reverse the state of the led
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
 
         debug("Setting INDOOR_NAVIGATION mode...\n");
+        debug("ctrl_meas: 0x%#X\r\n", RecommendedSettings::INDOOR_NAVIGATION[0]);
+        debug("config: 0x%#X\r\n", RecommendedSettings::INDOOR_NAVIGATION[1]);
         bmp280.setRecommendedSetting(RecommendedSettings::INDOOR_NAVIGATION[0], RecommendedSettings::INDOOR_NAVIGATION[1]);
         led = !led;  // reverse the state of the led
         ThisThread::sleep_for(SLEEP_TIME);  // sleep for a given time
